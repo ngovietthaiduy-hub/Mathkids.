@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathkids - Học Toán Lớp 1-12</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <h1>👶 Mathkids 🧮</h1>
+        <p>Ứng dụng học toán thông minh cho mọi lứa tuổi</p>
+
+        <!-- Khối chọn lớp -->
+        <div class="level-selector">
+            <label for="grade-select">Chọn lớp của bạn:</label>
+            <select id="grade-select" onchange="changeGrade()">
+                <option value="cap1">Lớp 1 - Lớp 5 (Cơ bản: +, -, x, :)</option>
+                <option value="cap2">Lớp 6 - Lớp 9 (Số học & Hình học)</option>
+                <option value="cap3">Lớp 10 - Lớp 12 (Đạo hàm, Tích phân)</option>
+            </select>
+        </div>
+
+        <!-- Khối hiển thị bài tập -->
+        <div class="quiz-box">
+            <h2 id="question">Đang tải câu hỏi...</h2>
+            <input type="text" id="user-answer" placeholder="Nhập câu trả lời của bạn">
+            <button onclick="checkAnswer()">Kiểm tra kết quả</button>
+            <p id="feedback"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathkids - Học Toán Lớp 1-12</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="app-body" class="theme-cap1"> <!-- Mặc định ban đầu là cấp 1 -->
+    <div class="app-container">
+        <h1 id="app-title">👶 Mathkids Lớp 1-5 🧮</h1>
+        
+        <!-- Khu vực hiển thị Điểm -->
+        <div class="score-board">
+            <span>⭐ Điểm: <strong id="score">0</strong></span>
+        </div>
+
+        <!-- Khối chọn lớp -->
+        <div class="level-selector">
+            <label for="grade-select">Bạn học lớp mấy?</label>
+            <select id="grade-select" onchange="changeGrade()">
+                <option value="cap1">Tiểu học (Lớp 1 - 5)</option>
+                <option value="cap2">THCS (Lớp 6 - 9)</option>
+                <option value="cap3">THPT (Lớp 10 - 12)</option>
+            </select>
+        </div>
+
+        <!-- Khối hiển thị bài tập -->
+        <div class="quiz-box">
+            <h2 id="question">Đang tải câu hỏi...</h2>
+            <input type="text" id="user-answer" placeholder="Nhập đáp số...">
+            <button onclick="checkAnswer()">Gửi kết quả</button>
+            <p id="feedback"></p>
+        </div>
+
+        <!-- Bảng xếp hạng -->
+        <div class="leaderboard">
+            <h3>🏆 Bảng Xếp Hạng Tuần</h3>
+            <ul id="leaderboard-list">
+                <!-- Data từ JS sẽ đổ vào đây -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathkids - Học Toán Lớp 1-12</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="app-body" class="theme-cap1">
+    <div class="app-container">
+        <h1 id="app-title">👶 Mathkids Lớp 1-5 🧮</h1>
+        
+        <!-- Khối thông tin Người chơi & Điểm số -->
+        <div class="status-bar">
+            <span id="player-name-display">👤 Người chơi: ...</span>
+            <span>⭐ Điểm: <strong id="score">0</strong></span>
+        </div>
+
+        <!-- Đồng hồ đếm ngược -->
+        <div class="timer-container">
+            ⏱️ Thời gian: <strong id="timer">30</strong> giây
+            <div class="timer-bar-bg">
+                <div id="timer-bar-fill"></div>
+            </div>
+        </div>
+
+        <!-- Khối chọn lớp -->
+        <div class="level-selector">
+            <label for="grade-select">Bạn học lớp mấy?</label>
+            <select id="grade-select" onchange="changeGrade()">
+                <option value="cap1">Tiểu học (Lớp 1 - 5)</option>
+                <option value="cap2">THCS (Lớp 6 - 9)</option>
+                <option value="cap3">THPT (Lớp 10 - 12)</option>
+            </select>
+        </div>
+
+        <!-- Khối hiển thị bài tập -->
+        <div class="quiz-box">
+            <h2 id="question">Đang tải câu hỏi...</h2>
+            <input type="text" id="user-answer" placeholder="Nhập đáp số..." onkeypress="handleKeyPress(event)">
+            
+            <div class="button-group">
+                <button onclick="checkAnswer()" class="btn-main">Gửi kết quả</button>
+                <button onclick="showHint()" class="btn-hint">💡 Gợi ý</button>
+            </div>
+            
+            <p id="feedback"></p>
+            <p id="hint-text" class="hidden-hint"></p>
+        </div>
+
+        <!-- Bảng xếp hạng -->
+        <div class="leaderboard">
+            <h3>🏆 Bảng Xếp Hạng Tuần</h3>
+            <ul id="leaderboard-list"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathkids - Học Toán Lớp 1-12</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="app-body" class="theme-cap1">
+    <div class="app-container">
+        <h1 id="app-title">👶 Mathkids Lớp 1-5 🧮</h1>
+        
+        <!-- Khối thông tin Người chơi & Điểm số -->
+        <div class="status-bar">
+            <span id="player-name-display">👤 Người chơi: ...</span>
+            <span>⭐ Điểm: <strong id="score">0</strong></span>
+        </div>
+
+        <!-- Khối Thống kê câu hỏi -->
+        <div class="stats-counter">
+            <span class="text-correct">✅ Đúng: <strong id="correct-count">0</strong></span> | 
+            <span class="text-wrong">❌ Sai: <strong id="wrong-count">0</strong></span>
+        </div>
+
+        <!-- Đồng hồ đếm ngược -->
+        <div class="timer-container">
+            ⏱️ Thời gian: <strong id="timer">30</strong> giây
+            <div class="timer-bar-bg">
+                <div id="timer-bar-fill"></div>
+            </div>
+        </div>
+
+        <!-- Khối chọn lớp -->
+        <div class="level-selector">
+            <label for="grade-select">Bạn học lớp mấy?</label>
+            <select id="grade-select" onchange="changeGrade()">
+                <option value="cap1">Tiểu học (Lớp 1 - 5)</option>
+                <option value="cap2">THCS (Lớp 6 - 9)</option>
+                <option value="cap3">THPT (Lớp 10 - 12)</option>
+            </select>
+        </div>
+
+        <!-- Khối hiển thị bài tập -->
+        <div class="quiz-box">
+            <h2 id="question">Đang tải câu hỏi...</h2>
+            <input type="text" id="user-answer" placeholder="Nhập đáp số..." onkeypress="handleKeyPress(event)">
+            
+            <div class="button-group">
+                <button onclick="checkAnswer()" class="btn-main">Gửi kết quả</button>
+                <button onclick="showHint()" class="btn-hint">💡 Gợi ý</button>
+            </div>
+            
+            <p id="feedback"></p>
+            <p id="hint-text" class="hidden-hint"></p>
+        </div>
+
+        <!-- Nút xem Tổng kết Thống kê -->
+        <button onclick="showSummaryReport()" class="btn-report">📊 Xem Báo Cáo Học Tập</button>
+
+        <!-- Bảng xếp hạng -->
+        <div class="leaderboard">
+            <h3>🏆 Bảng Xếp Hạng Tuần</h3>
+            <ul id="leaderboard-list"></ul>
+        </div>
+    </div>
+
+    <!-- Nhúng file âm thanh từ kho lưu trữ trực tuyến công cộng -->
+    <audio id="sound-correct" src="https://mixkit.co" preload="auto"></audio>
+    <audio id="sound-wrong" src="https://mixkit.co" preload="auto"></audio>
+    <audio id="sound-timeout" src="https://mixkit.co" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

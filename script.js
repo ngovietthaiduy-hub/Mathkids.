@@ -170,8 +170,6 @@ function resetTimer() {
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            const sound = document.getElementById("sound-timeout");
-            if(sound) sound.play().catch(()=>{});
             
             countWrong++;
             const wrongCountElem = document.getElementById("wrong-count");
@@ -221,8 +219,6 @@ function checkAnswer() {
 
     if (userAnswer === currentCorrectAnswer) {
         clearInterval(timerInterval);
-        const sound = document.getElementById("sound-correct");
-        if(sound) sound.play().catch(()=>{});
         
         countCorrect++;
         const correctCountElem = document.getElementById("correct-count");
@@ -238,9 +234,6 @@ function checkAnswer() {
         updateLeaderboard();
         setTimeout(generateQuestion, 1800);
     } else {
-        const sound = document.getElementById("sound-wrong");
-        if(sound) sound.play().catch(()=>{});
-        
         countWrong++;
         const wrongCountElem = document.getElementById("wrong-count");
         if(wrongCountElem) wrongCountElem.innerText = countWrong;
@@ -255,4 +248,12 @@ function checkAnswer() {
 function showSummaryReport() {
     const totalQuestions = countCorrect + countWrong;
     let accuracyRate = totalQuestions > 0 ? Math.round((countCorrect / totalQuestions) * 100) : 0;
+    
+    let evaluation = "Cố gắng lên nhé! Luyện tập nhiều sẽ giỏi hơn.";
+    if (accuracyRate >= 80) evaluation = "🏆 Xuất sắc! Bạn là một thiên tài toán học!";
+    else if (accuracyRate >= 50) evaluation = "👍 Khá tốt! Hãy duy trì phong độ này nhé.";
+
+    alert(
+        `📊 BÁO CÁO HỌC TẬP CỦA: ${playerName.toUpperCase()}\n` +
+        `----------------------------------------\n` +
     
